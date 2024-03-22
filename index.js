@@ -22,7 +22,7 @@ import PdfViewNativeComponent, {
   } from './fabric/RNPDFPdfNativeComponent';
 import ReactNativeBlobUtil from 'react-native-blob-util'
 import {ViewPropTypes} from 'deprecated-react-native-prop-types';
-import { SHA1 } from 'crypto-es/lib/sha1';
+import { SHA256 } from 'crypto-es/lib/sha256';
 import PdfView from './PdfView';
 
 export default class Pdf extends Component {
@@ -162,7 +162,7 @@ export default class Pdf extends Component {
         if (this._mounted) {
             this.setState({isDownloaded: false, path: '', progress: 0});
         }
-        const filename = source.cacheFileName || SHA1(uri) + '.pdf';
+        const filename = source.cacheFileName || SHA256(uri) + '.pdf';
         const cacheFile = ReactNativeBlobUtil.fs.dirs.CacheDir + '/' + filename;
 
         if (source.cache) {
@@ -197,7 +197,7 @@ export default class Pdf extends Component {
                 const isAsset = !!(uri && uri.match(/^bundle-assets:\/\//));
                 const isBase64 = !!(uri && uri.match(/^data:application\/pdf;base64/));
 
-                const filename = source.cacheFileName || SHA1(uri) + '.pdf';
+                const filename = source.cacheFileName || SHA256(uri) + '.pdf';
                 const cacheFile = ReactNativeBlobUtil.fs.dirs.CacheDir + '/' + filename;
 
                 // delete old cache file
